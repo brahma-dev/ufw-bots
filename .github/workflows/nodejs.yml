@@ -1,0 +1,42 @@
+name: generate-lists
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 1 * * *'
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: npm install
+      run: npm install
+
+    - name: Generate files    
+      run: npm start
+
+    - name: Commit files
+      run: |
+        git config --local user.email "me@brahma.world"
+        git config --local user.name "Github Action Bot"
+        git commit -m "Updated List" -- files
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}

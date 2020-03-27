@@ -1,0 +1,22 @@
+{
+  "name": "ufw-bots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brahma-dev/ufw-bots.git"
+  },
+  "author": "Brahma Dev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brahma-dev/ufw-bots/issues"
+  },
+  "homepage": "https://github.com/brahma-dev/ufw-bots#readme",
+  "dependencies": {
+    "follow-redirects": "^1.10.0"
+  }
+}
