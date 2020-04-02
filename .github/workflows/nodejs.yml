@@ -34,7 +34,7 @@ jobs:
       run: |
         git config --local user.email "me@brahma.world"
         git config --local user.name "Github Action Bot"
-        git commit -m "Updated List" -- files
+        git commit -m "Updated List" --allow-empty -- files
 
     - name: Push changes
       uses: ad-m/github-push-action@master
