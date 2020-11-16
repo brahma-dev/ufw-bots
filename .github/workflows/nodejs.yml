@@ -34,6 +34,7 @@ jobs:
       run: |
         git config --local user.email "me@brahma.world"
         git config --local user.name "Github Action Bot"
+        git config --local commit.gpgsign false
         git commit -m "Updated List" --allow-empty -- files
 
     - name: Push changes
