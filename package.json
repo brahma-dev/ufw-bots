@@ -1,6 +1,6 @@
 {
   "name": "ufw-bots",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/brahma-dev/ufw-bots#readme",
   "dependencies": {
-    "follow-redirects": "^1.10.0"
+    "follow-redirects": "^1.10.0",
+    "p-throttle": "^4.0.0"
   }
 }

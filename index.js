@@ -1,6 +1,11 @@
 const https = require('follow-redirects').https;
 const fs = require('fs');
 const path = require('path');
+const pThrottle = require('p-throttle');
+const throttle = pThrottle({
+	limit: 1,
+	interval: 2000
+});
 const httpsRequest = (opts) => new Promise((resolve, reject) => {
 	var options = {
 		'method': opts.method || 'GET',
@@ -38,7 +43,7 @@ const badASNs = [];
 const ipv4_subnets = [];
 const ipv6_subnets = [];
 
-const fetchASNData = (asnIndex) => {
+const fetchASNData = throttle((asnIndex) => {
 	asnIndex = asnIndex || 0;
 	if (asnIndex == badASNs.length) {
 		return Promise.resolve();
@@ -54,7 +59,7 @@ const fetchASNData = (asnIndex) => {
 		data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix))
 		return fetchASNData(asnIndex + 1);
 	});
-};
+});
 
 const fetchBadASNs = () => {
 	let options = {
