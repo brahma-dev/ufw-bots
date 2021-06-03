@@ -4,7 +4,7 @@ const path = require('path');
 const pThrottle = require('p-throttle');
 const throttle = pThrottle({
 	limit: 1,
-	interval: 2000
+	interval: 4000
 });
 const httpsRequest = (opts) => new Promise((resolve, reject) => {
 	var options = {
