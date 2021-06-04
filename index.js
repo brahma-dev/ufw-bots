@@ -57,7 +57,7 @@ const fetchASNData = throttle((asnIndex) => {
 	return httpsRequest(options).then(JSON.parse).then((data) => {
 		data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix))
 		data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix))
-		return fetchASNData(asnIndex + 1);
+		return setTimeout(function(){fetchASNData(asnIndex + 1)},1000);
 	});
 });
 
