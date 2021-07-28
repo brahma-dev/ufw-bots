@@ -43,6 +43,12 @@ const badASNs = [];
 const ipv4_subnets = [];
 const ipv6_subnets = [];
 
+const forcedDelay = (timeout)=>{
+	return new Promise((resolve,reject)=>{
+		return setTimeout(function(){resolve()},timeout);
+	})
+}
+
 const fetchASNData = throttle((asnIndex) => {
 	asnIndex = asnIndex || 0;
 	if (asnIndex == badASNs.length) {
@@ -57,7 +63,7 @@ const fetchASNData = throttle((asnIndex) => {
 	return httpsRequest(options).then(JSON.parse).then((data) => {
 		data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix))
 		data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix))
-		return setTimeout(function(){fetchASNData(asnIndex + 1)},1000);
+		return forcedDelay(1000).then(()=>fetchASNData(asnIndex + 1));
 	});
 });
 
