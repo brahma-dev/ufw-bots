@@ -3,7 +3,7 @@ const { https } = pkg;
 import fs from 'fs';
 import path from 'path';
 import pLimit from 'p-limit';
-const limit = pLimit(5);
+const limit = pLimit(4);
 const httpsAgent = new https.Agent({ keepAlive: true })
 const httpsRequest = (opts) => new Promise((resolve, reject) => {
 	var options = {
@@ -63,6 +63,7 @@ const fetchASNData = (asn, asnIndex) => {
 			data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix));
 			resolve();
 		}).catch((e) => {
+			console.info(Math.floor(asnIndex * 100 / badASNs.length), "% : Retrying", asn);
 			return forcedDelay(10000).then(() => httpsRequest(options)).then(JSON.parse).then((data) => {
 				data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix));
 				data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix));
@@ -133,7 +134,7 @@ echo "Reloading ufw"
 ufw reload
 `, function (err) {
 		if (err) { throw err; }
-		fs.chmod(path.join(__dirname, "/files/ufw.sh"), 0o755, (err) => {
+		fs.chmod("./files/ufw.sh", 0o755, (err) => {
 			if (err) { throw err; }
 		});
 		console.log("Batch file for ufw saved to files/ufw.sh");
