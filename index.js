@@ -4,7 +4,7 @@ const path = require('path');
 const pThrottle = require('p-throttle');
 const throttle = pThrottle({
 	limit: 1,
-	interval: 1000
+	interval: 1200
 });
 const httpsRequest = (opts) => new Promise((resolve, reject) => {
 	var options = {
@@ -65,7 +65,7 @@ const fetchASNData = throttle((asnIndex) => {
 	return httpsRequest(options).then(JSON.parse).then((data) => {
 		data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix))
 		data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix))
-		return forcedDelay(200).then(()=>fetchASNData(asnIndex + 1));
+		return forcedDelay(500).then(()=>fetchASNData(asnIndex + 1));
 	});
 });
 
