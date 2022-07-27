@@ -1,20 +1,20 @@
-const https = require('follow-redirects').https;
-const fs = require('fs');
-const path = require('path');
-const pThrottle = require('p-throttle');
-const throttle = pThrottle({
-	limit: 1,
-	interval: 4000
-});
+import pkg from 'follow-redirects';
+const { https } = pkg;
+import fs from 'fs';
+import path from 'path';
+import pLimit from 'p-limit';
+const limit = pLimit(5);
+const httpsAgent = new https.Agent({ keepAlive: true })
 const httpsRequest = (opts) => new Promise((resolve, reject) => {
 	var options = {
 		'method': opts.method || 'GET',
 		'hostname': opts.hostname,
 		'path': opts.path,
 		'headers': opts.headers || {
-			'User-Agent':'Mozilla/5.0 (Android 12; Mobile; rv:68.0) Gecko/68.0 Firefox/103.0'
+			'User-Agent': 'Mozilla/5.0 (Android 12; Mobile; rv:68.0) Gecko/68.0 Firefox/103.0'
 		},
-		'maxRedirects': 5
+		'maxRedirects': 5,
+		'agent': httpsAgent
 	};
 
 	var req = https.request(options, function (res) {
@@ -45,29 +45,32 @@ const badASNs = [];
 const ipv4_subnets = [];
 const ipv6_subnets = [];
 
-const forcedDelay = (timeout)=>{
-	return new Promise((resolve,reject)=>{
-		return setTimeout(function(){resolve()},timeout);
+const forcedDelay = (timeout) => {
+	return new Promise((resolve, reject) => {
+		return setTimeout(function () { resolve() }, timeout);
 	})
 }
 
-const fetchASNData = throttle((asnIndex) => {
-	asnIndex = asnIndex || 0;
-	if (asnIndex == badASNs.length) {
-		return Promise.resolve();
-	}
-
-	let options = {
-		'hostname': 'api.bgpview.io',
-		'path': `/asn/${badASNs[asnIndex]}/prefixes`,
-	};
-	console.log(Math.floor(asnIndex * 100 / badASNs.length), "% : Fetching", badASNs[asnIndex]);
-	return httpsRequest(options).then(JSON.parse).then((data) => {
-		data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix))
-		data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix))
-		return forcedDelay(4000).then(()=>fetchASNData(asnIndex + 1));
+const fetchASNData = (asn, asnIndex) => {
+	return new Promise((resolve, reject) => {
+		let options = {
+			'hostname': 'api.bgpview.io',
+			'path': `/asn/${asn}/prefixes`,
+		};
+		console.log(Math.floor(asnIndex * 100 / badASNs.length), "% : Fetching", asn);
+		return httpsRequest(options).then(JSON.parse).then((data) => {
+			data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix));
+			data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix));
+			resolve();
+		}).catch((e) => {
+			return forcedDelay(10000).then(() => httpsRequest(options)).then(JSON.parse).then((data) => {
+				data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix));
+				data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix));
+				resolve();
+			}).catch(reject);
+		});
 	});
-});
+};
 
 const fetchBadASNs = () => {
 	let options = {
@@ -89,7 +92,7 @@ const sortIPs = (a, b) => {
 	return 0;
 }
 
-fetchBadASNs().then(() => fetchASNData(0)).then(() => {
+fetchBadASNs().then(() => Promise.all(badASNs.map((e, i) => limit(() => fetchASNData(e, i))))).then(() => {
 	console.log("100% : Finished downloading"); // For continuity 
 	ipv4_subnets.sort(sortIPs);
 	ipv6_subnets.sort(sortIPs);
@@ -98,15 +101,15 @@ fetchBadASNs().then(() => fetchASNData(0)).then(() => {
 		ipv4_subnets.map((e) => `### tuple ### deny any any 0.0.0.0/0 any ${e} in comment=7566772d626f7473\n-A ufw-user-input -s ${e} -j DROP`).join("\n\n"),
 		ipv6_subnets.map((e) => `### tuple ### deny any any ::/0 any ${e} in comment=7566772d626f7473\n-A ufw6-user-input -s  ${e} -j DROP`).join("\n\n"),
 	]
-	fs.writeFile(path.join(__dirname, "/files/ipv4.txt"), badIPs[0], function (err) {
+	fs.writeFile("./files/ipv4.txt", badIPs[0], function (err) {
 		if (err) { throw err; }
 		console.log("List of bad IPs saved to files/ipv4.txt");
 	});
-	fs.writeFile(path.join(__dirname, "/files/ipv6.txt"), badIPs[1], function (err) {
+	fs.writeFile("./files/ipv6.txt", badIPs[1], function (err) {
 		if (err) { throw err; }
 		console.log("List of bad IPs saved to files/ipv6.txt");
 	});
-	fs.writeFile(path.join(__dirname, "/files/ufw.sh"), `#!/usr/bin/env bash
+	fs.writeFile("./files/ufw.sh", `#!/usr/bin/env bash
 
 echo "Clearing old ipv4 rules"
 sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\\n.*DROP//gm" /etc/ufw/user.rules
@@ -135,6 +138,7 @@ ufw reload
 		});
 		console.log("Batch file for ufw saved to files/ufw.sh");
 	});
-}).catch((e)=>{
+}).catch((e) => {
+	console.error(e);
 	process.exit(1);
 });
