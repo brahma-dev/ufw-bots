@@ -4,14 +4,16 @@ const path = require('path');
 const pThrottle = require('p-throttle');
 const throttle = pThrottle({
 	limit: 1,
-	interval: 4000
+	interval: 1000
 });
 const httpsRequest = (opts) => new Promise((resolve, reject) => {
 	var options = {
 		'method': opts.method || 'GET',
 		'hostname': opts.hostname,
 		'path': opts.path,
-		'headers': opts.headers || {},
+		'headers': opts.headers || {
+			'User-Agent':'Mozilla/5.0 (Android 12; Mobile; rv:68.0) Gecko/68.0 Firefox/103.0'
+		},
 		'maxRedirects': 5
 	};
 
@@ -63,7 +65,7 @@ const fetchASNData = throttle((asnIndex) => {
 	return httpsRequest(options).then(JSON.parse).then((data) => {
 		data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix))
 		data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix))
-		return forcedDelay(2000).then(()=>fetchASNData(asnIndex + 1));
+		return forcedDelay(200).then(()=>fetchASNData(asnIndex + 1));
 	});
 });
 
@@ -133,4 +135,6 @@ ufw reload
 		});
 		console.log("Batch file for ufw saved to files/ufw.sh");
 	});
+}).catch((e)=>{
+	process.exit(1);
 });
