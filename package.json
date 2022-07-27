@@ -1,6 +1,6 @@
 {
   "name": "ufw-bots",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,9 +15,10 @@
   "bugs": {
     "url": "https://github.com/brahma-dev/ufw-bots/issues"
   },
+  "type": "module",
   "homepage": "https://github.com/brahma-dev/ufw-bots#readme",
   "dependencies": {
     "follow-redirects": "^1.10.0",
-    "p-throttle": "^4.0.0"
+    "p-limit": "^4.0.0"
   }
 }
