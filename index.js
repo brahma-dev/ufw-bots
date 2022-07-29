@@ -59,14 +59,26 @@ const fetchASNData = (asn, asnIndex) => {
 		};
 		console.log(Math.floor(asnIndex * 100 / badASNs.length), "% : Fetching", asn);
 		return httpsRequest(options).then(JSON.parse).then((data) => {
-			data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix));
-			data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix));
+			data.data.ipv4_prefixes.forEach((e) => {
+				if (ipv4_subnets.indexOf(e.prefix) == -1)
+					ipv4_subnets.push(e.prefix)
+			});
+			data.data.ipv6_prefixes.forEach((e) => {
+				if (ipv6_subnets.indexOf(e.prefix) == -1)
+					ipv6_subnets.push(e.prefix)
+			});
 			resolve();
 		}).catch((e) => {
 			console.info(Math.floor(asnIndex * 100 / badASNs.length), "% : Retrying", asn);
 			return forcedDelay(10000).then(() => httpsRequest(options)).then(JSON.parse).then((data) => {
-				data.data.ipv4_prefixes.forEach((e) => ipv4_subnets.push(e.prefix));
-				data.data.ipv6_prefixes.forEach((e) => ipv6_subnets.push(e.prefix));
+				data.data.ipv4_prefixes.forEach((e) => {
+					if (ipv4_subnets.indexOf(e.prefix) == -1)
+						ipv4_subnets.push(e.prefix)
+				});
+				data.data.ipv6_prefixes.forEach((e) => {
+					if (ipv6_subnets.indexOf(e.prefix) == -1)
+						ipv6_subnets.push(e.prefix)
+				});
 				resolve();
 			}).catch(reject);
 		});
@@ -109,6 +121,10 @@ fetchBadASNs().then(() => Promise.all(badASNs.map((e, i) => limit(() => fetchASN
 	fs.writeFile("./files/ipv6.txt", badIPs[1], function (err) {
 		if (err) { throw err; }
 		console.log("List of bad IPs saved to files/ipv6.txt");
+	});
+	fs.writeFile("./files/combined.txt", badIPs[0] + "\n" + badIPs[1], function (err) {
+		if (err) { throw err; }
+		console.log("List of bad IPs saved to files/combined.txt");
 	});
 	fs.writeFile("./files/ufw.sh", `#!/usr/bin/env bash
 
