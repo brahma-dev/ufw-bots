@@ -3,7 +3,7 @@ const { https } = pkg;
 import fs from 'fs';
 import path from 'path';
 import pLimit from 'p-limit';
-const limit = pLimit(4);
+const limit = pLimit(3);
 const httpsAgent = new https.Agent({ keepAlive: true })
 const httpsRequest = (opts) => new Promise((resolve, reject) => {
 	var options = {
@@ -70,7 +70,7 @@ const fetchASNData = (asn, asnIndex) => {
 			resolve();
 		}).catch((e) => {
 			console.info(Math.floor(asnIndex * 100 / badASNs.length), "% : Retrying", asn);
-			return forcedDelay(10000).then(() => httpsRequest(options)).then(JSON.parse).then((data) => {
+			return forcedDelay(12000).then(() => httpsRequest(options)).then(JSON.parse).then((data) => {
 				data.data.ipv4_prefixes.forEach((e) => {
 					if (ipv4_subnets.indexOf(e.prefix) == -1)
 						ipv4_subnets.push(e.prefix)
