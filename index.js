@@ -70,7 +70,7 @@ const fetchASNData = (asn, asnIndex) => {
 			resolve();
 		}).catch((e) => {
 			console.info(Math.floor(asnIndex * 100 / badASNs.length), "% : Retrying", asn);
-			return forcedDelay(12000).then(() => httpsRequest(options)).then(JSON.parse).then((data) => {
+			return forcedDelay(18000).then(() => httpsRequest(options)).then(JSON.parse).then((data) => {
 				data.data.ipv4_prefixes.forEach((e) => {
 					if (ipv4_subnets.indexOf(e.prefix) == -1)
 						ipv4_subnets.push(e.prefix)
