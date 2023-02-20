@@ -3,7 +3,7 @@ const { https } = pkg;
 import fs from 'fs';
 import path from 'path';
 import pLimit from 'p-limit';
-const limit = pLimit(3);
+const limit = pLimit(1);
 const httpsAgent = new https.Agent({ keepAlive: true })
 const httpsRequest = (opts) => new Promise((resolve, reject) => {
 	var options = {
@@ -26,6 +26,9 @@ const httpsRequest = (opts) => new Promise((resolve, reject) => {
 
 		res.on("end", function (chunk) {
 			var body = Buffer.concat(chunks);
+			let type = res.headers["content-type"];
+			if (type.indexOf("json") !== -1)
+				return resolve(JSON.parse(body.toString()));
 			resolve(body.toString());
 		});
 
@@ -47,7 +50,7 @@ const ipv6_subnets = [];
 
 const forcedDelay = (timeout) => {
 	return new Promise((resolve, reject) => {
-		return setTimeout(function () { resolve() }, timeout);
+		setTimeout(function () { resolve() }, timeout);
 	})
 }
 
@@ -58,7 +61,7 @@ const fetchASNData = (asn, asnIndex) => {
 			'path': `/asn/${asn}/prefixes`,
 		};
 		console.log(Math.floor(asnIndex * 100 / badASNs.length), "% : Fetching", asn);
-		return httpsRequest(options).then(JSON.parse).then((data) => {
+		return httpsRequest(options).then((data) => {
 			data.data.ipv4_prefixes.forEach((e) => {
 				if (ipv4_subnets.indexOf(e.prefix) == -1)
 					ipv4_subnets.push(e.prefix)
@@ -70,7 +73,7 @@ const fetchASNData = (asn, asnIndex) => {
 			resolve();
 		}).catch((e) => {
 			console.info(Math.floor(asnIndex * 100 / badASNs.length), "% : Retrying", asn);
-			return forcedDelay(24000).then(() => httpsRequest(options)).then(JSON.parse).then((data) => {
+			return forcedDelay(10000).then(() => httpsRequest(options)).then((data) => {
 				data.data.ipv4_prefixes.forEach((e) => {
 					if (ipv4_subnets.indexOf(e.prefix) == -1)
 						ipv4_subnets.push(e.prefix)
