@@ -3,7 +3,7 @@ name: generate-lists
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '59 */6 * * *'
+    - cron:  '59 4,10,16,22 * * *'
 
 jobs:
 
