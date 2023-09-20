@@ -1,7 +1,6 @@
 import pkg from 'follow-redirects';
 const { https } = pkg;
 import fs from 'fs';
-import path from 'path';
 import pLimit from 'p-limit';
 const limit = pLimit(1);
 const httpsAgent = new https.Agent({ keepAlive: true })
@@ -11,7 +10,7 @@ const httpsRequest = (opts) => new Promise((resolve, reject) => {
 		'hostname': opts.hostname,
 		'path': opts.path,
 		'headers': opts.headers || {
-			'User-Agent': 'Mozilla/5.0 (Android 12; Mobile; rv:68.0) Gecko/68.0 Firefox/103.0'
+			'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0'
 		},
 		'maxRedirects': 5,
 		'agent': httpsAgent
@@ -91,9 +90,12 @@ const fetchASNData = (asn, asnIndex) => {
 const fetchBadASNs = () => {
 	let options = {
 		'hostname': 'raw.githubusercontent.com',
-		'path': '/Conticop/bad-asn-list/master/bad-asn-list.txt'
+		'path': '/brianhama/bad-asn-list/master/bad-asn-list.csv'
 	};
-	return httpsRequest(options).then((data) => data.split(/\r\n|\r|\n/).filter((e) => !notSoBadASNs.includes(e)).forEach((e) => badASNs.push("AS" + e)));
+	return httpsRequest(options)
+		.then((data) => data.split(/\r\n|\r|\n/).slice(1))
+		.then((data) => data.map((e) => parseInt(e.split(",")[0].replaceAll('"', ''))))
+		.then((data) => data.filter((e) => !notSoBadASNs.includes(e)).forEach((e) => e && badASNs.push("AS" + e)));
 }
 
 const sortIPs = (a, b) => {

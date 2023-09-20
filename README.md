@@ -1,6 +1,6 @@
 # ufw-bots
 
-Script to automatically block IPs from datacenter ASNs (https://github.com/Conticop/bad-asn-list)
+Script to automatically block IPs from datacenter ASNs (https://github.com/brianhama/bad-asn-list)
 
 `I have excluded the following ASNs from the above list`
 - Cloudflare (See https://www.cloudflare.com/ips/ for list of IPs to block if you want)
