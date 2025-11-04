@@ -9,29 +9,29 @@ jobs:
 
   build:
     name: Build
-    runs-on: self-hosted
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
+    runs-on: ubuntu-latest
+    
     steps:
     - name: Cleanup
       run: rm -rf *
   
-    - name: Checkout
-      uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: Setup Bun
+      # Use the official Bun action to install Bun
+      uses: oven-sh/setup-bun@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        # Optional: specify a Bun version
+        bun-version: latest
 
-    - name: npm install
-      run: npm install
+    - name: Install Dependencies
+      # 'bun install' is significantly faster than 'npm install'
+      run: bun install
 
-    - name: Generate files    
-      run: npm start
+    - name: Generate IP Lists
+      # Run the script directly with Bun
+      run: bun run index.ts
 
     - name: Commit files
       run: |

@@ -1,10 +1,10 @@
 {
   "name": "ufw-bots",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node index.js"
+    "start": "bun index.ts"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   "type": "module",
   "homepage": "https://github.com/brahma-dev/ufw-bots#readme",
   "dependencies": {
-    "follow-redirects": "^1.10.0",
+    "cidr-tools": "^11.0.3",
     "p-limit": "^4.0.0"
   }
 }
