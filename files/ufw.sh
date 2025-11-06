@@ -1527,6 +1527,9 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 13.192.0.0/11 in comment=7566772d626f7473
 -A ufw-user-input -s 13.192.0.0/11 -j DROP
 
+### tuple ### deny any any 0.0.0.0/0 any 13.224.24.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 13.224.24.0/24 -j DROP
+
 ### tuple ### deny any any 0.0.0.0/0 any 13.224.27.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 13.224.27.0/24 -j DROP
 
@@ -1719,8 +1722,8 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 13.225.72.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 13.225.72.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 13.225.105.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 13.225.105.0/24 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 13.225.104.0/23 in comment=7566772d626f7473
+-A ufw-user-input -s 13.225.104.0/23 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 13.225.106.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 13.225.106.0/24 -j DROP
@@ -3597,15 +3600,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 18.154.164.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 18.154.164.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 18.154.167.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 18.154.167.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 18.154.168.0/21 in comment=7566772d626f7473
--A ufw-user-input -s 18.154.168.0/21 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 18.154.176.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 18.154.176.0/22 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 18.154.182.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 18.154.182.0/23 -j DROP
 
@@ -4076,15 +4070,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 18.161.56.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 18.161.56.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 18.161.59.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 18.161.59.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 18.161.60.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 18.161.60.0/22 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 18.161.64.0/21 in comment=7566772d626f7473
--A ufw-user-input -s 18.161.64.0/21 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 18.161.74.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 18.161.74.0/23 -j DROP
@@ -7359,9 +7344,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 31.56.156.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 31.56.156.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 31.56.190.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 31.56.190.0/24 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 31.56.207.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 31.56.207.0/24 -j DROP
 
@@ -7986,8 +7968,11 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 32.247.0.0/16 in comment=7566772d626f7473
 -A ufw-user-input -s 32.247.0.0/16 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 34.0.0.0/18 in comment=7566772d626f7473
--A ufw-user-input -s 34.0.0.0/18 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 34.0.16.0/20 in comment=7566772d626f7473
+-A ufw-user-input -s 34.0.16.0/20 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 34.0.32.0/19 in comment=7566772d626f7473
+-A ufw-user-input -s 34.0.32.0/19 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 34.0.96.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 34.0.96.0/19 -j DROP
@@ -7998,8 +7983,17 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 34.1.0.0/18 in comment=7566772d626f7473
 -A ufw-user-input -s 34.1.0.0/18 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 34.1.64.0/20 in comment=7566772d626f7473
--A ufw-user-input -s 34.1.64.0/20 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 34.1.64.0/21 in comment=7566772d626f7473
+-A ufw-user-input -s 34.1.64.0/21 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 34.1.72.0/22 in comment=7566772d626f7473
+-A ufw-user-input -s 34.1.72.0/22 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 34.1.76.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 34.1.76.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 34.1.78.0/23 in comment=7566772d626f7473
+-A ufw-user-input -s 34.1.78.0/23 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 34.1.80.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 34.1.80.0/23 -j DROP
@@ -8052,8 +8046,11 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 34.4.4.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 34.4.4.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 34.4.16.0/20 in comment=7566772d626f7473
--A ufw-user-input -s 34.4.16.0/20 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 34.4.16.0/21 in comment=7566772d626f7473
+-A ufw-user-input -s 34.4.16.0/21 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 34.4.28.0/22 in comment=7566772d626f7473
+-A ufw-user-input -s 34.4.28.0/22 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 34.4.32.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 34.4.32.0/19 -j DROP
@@ -8061,11 +8058,23 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 34.4.64.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 34.4.64.0/19 -j DROP
 
+### tuple ### deny any any 0.0.0.0/0 any 34.4.128.0/18 in comment=7566772d626f7473
+-A ufw-user-input -s 34.4.128.0/18 -j DROP
+
 ### tuple ### deny any any 0.0.0.0/0 any 34.112.0.0/16 in comment=7566772d626f7473
 -A ufw-user-input -s 34.112.0.0/16 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 34.190.0.0/17 in comment=7566772d626f7473
--A ufw-user-input -s 34.190.0.0/17 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 34.190.0.0/19 in comment=7566772d626f7473
+-A ufw-user-input -s 34.190.0.0/19 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 34.190.32.0/21 in comment=7566772d626f7473
+-A ufw-user-input -s 34.190.32.0/21 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 34.190.48.0/20 in comment=7566772d626f7473
+-A ufw-user-input -s 34.190.48.0/20 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 34.190.64.0/18 in comment=7566772d626f7473
+-A ufw-user-input -s 34.190.64.0/18 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 34.190.128.0/18 in comment=7566772d626f7473
 -A ufw-user-input -s 34.190.128.0/18 -j DROP
@@ -8166,17 +8175,8 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 35.176.0.0/13 in comment=7566772d626f7473
 -A ufw-user-input -s 35.176.0.0/13 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 35.206.0.0/21 in comment=7566772d626f7473
--A ufw-user-input -s 35.206.0.0/21 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 35.206.8.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 35.206.8.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 35.206.10.0/23 in comment=7566772d626f7473
--A ufw-user-input -s 35.206.10.0/23 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 35.206.12.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 35.206.12.0/22 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 35.206.0.0/20 in comment=7566772d626f7473
+-A ufw-user-input -s 35.206.0.0/20 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 35.206.32.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 35.206.32.0/19 -j DROP
@@ -9812,6 +9812,9 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 40.183.100.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 40.183.100.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 40.183.124.0/22 in comment=7566772d626f7473
+-A ufw-user-input -s 40.183.124.0/22 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 40.183.160.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 40.183.160.0/19 -j DROP
@@ -15975,6 +15978,9 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 51.70.0.0/16 in comment=7566772d626f7473
 -A ufw-user-input -s 51.70.0.0/16 -j DROP
 
+### tuple ### deny any any 0.0.0.0/0 any 51.72.0.0/15 in comment=7566772d626f7473
+-A ufw-user-input -s 51.72.0.0/15 -j DROP
+
 ### tuple ### deny any any 0.0.0.0/0 any 51.74.0.0/20 in comment=7566772d626f7473
 -A ufw-user-input -s 51.74.0.0/20 -j DROP
 
@@ -18906,9 +18912,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 66.92.25.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 66.92.25.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 66.92.52.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 66.92.52.0/24 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 66.92.56.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 66.92.56.0/23 -j DROP
 
@@ -19494,8 +19497,11 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 66.249.64.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 66.249.64.0/19 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 66.250.216.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 66.250.216.0/22 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 66.250.217.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 66.250.217.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 66.250.218.0/23 in comment=7566772d626f7473
+-A ufw-user-input -s 66.250.218.0/23 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 66.251.128.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 66.251.128.0/24 -j DROP
@@ -19826,9 +19832,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 67.210.98.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 67.210.98.0/23 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 67.210.103.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 67.210.103.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 67.210.104.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 67.210.104.0/24 -j DROP
@@ -21437,6 +21440,12 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 72.1.72.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 72.1.72.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 72.1.80.0/22 in comment=7566772d626f7473
+-A ufw-user-input -s 72.1.80.0/22 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 72.1.84.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 72.1.84.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 72.1.240.0/20 in comment=7566772d626f7473
 -A ufw-user-input -s 72.1.240.0/20 -j DROP
@@ -33198,8 +33207,23 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 99.84.96.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 99.84.96.0/19 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 99.84.128.0/17 in comment=7566772d626f7473
--A ufw-user-input -s 99.84.128.0/17 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 99.84.128.0/20 in comment=7566772d626f7473
+-A ufw-user-input -s 99.84.128.0/20 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 99.84.145.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 99.84.145.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 99.84.147.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 99.84.147.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 99.84.148.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 99.84.148.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 99.84.160.0/19 in comment=7566772d626f7473
+-A ufw-user-input -s 99.84.160.0/19 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 99.84.192.0/18 in comment=7566772d626f7473
+-A ufw-user-input -s 99.84.192.0/18 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 99.85.128.0/17 in comment=7566772d626f7473
 -A ufw-user-input -s 99.85.128.0/17 -j DROP
@@ -33261,11 +33285,8 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 99.86.170.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 99.86.170.0/23 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 99.86.173.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 99.86.173.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 99.86.174.0/23 in comment=7566772d626f7473
--A ufw-user-input -s 99.86.174.0/23 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 99.86.172.0/22 in comment=7566772d626f7473
+-A ufw-user-input -s 99.86.172.0/22 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 99.86.176.0/21 in comment=7566772d626f7473
 -A ufw-user-input -s 99.86.176.0/21 -j DROP
@@ -35304,9 +35325,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 103.176.58.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 103.176.58.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 103.177.114.0/23 in comment=7566772d626f7473
--A ufw-user-input -s 103.177.114.0/23 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 103.177.196.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 103.177.196.0/23 -j DROP
 
@@ -35877,8 +35895,11 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 103.243.212.0/22 in comment=7566772d626f7473
 -A ufw-user-input -s 103.243.212.0/22 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 103.244.0.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 103.244.0.0/22 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 103.244.1.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 103.244.1.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 103.244.2.0/23 in comment=7566772d626f7473
+-A ufw-user-input -s 103.244.2.0/23 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 103.244.112.0/22 in comment=7566772d626f7473
 -A ufw-user-input -s 103.244.112.0/22 -j DROP
@@ -36056,6 +36077,9 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 104.40.0.0/13 in comment=7566772d626f7473
 -A ufw-user-input -s 104.40.0.0/13 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 104.64.128.0/18 in comment=7566772d626f7473
+-A ufw-user-input -s 104.64.128.0/18 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 104.64.192.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 104.64.192.0/19 -j DROP
@@ -38364,9 +38388,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 104.254.192.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 104.254.192.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 104.254.209.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 104.254.209.0/24 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 104.254.212.0/22 in comment=7566772d626f7473
 -A ufw-user-input -s 104.254.212.0/22 -j DROP
 
@@ -39561,6 +39582,15 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 108.157.68.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 108.157.68.0/23 -j DROP
 
+### tuple ### deny any any 0.0.0.0/0 any 108.157.72.0/21 in comment=7566772d626f7473
+-A ufw-user-input -s 108.157.72.0/21 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 108.157.80.0/22 in comment=7566772d626f7473
+-A ufw-user-input -s 108.157.80.0/22 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 108.157.84.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 108.157.84.0/24 -j DROP
+
 ### tuple ### deny any any 0.0.0.0/0 any 108.157.87.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 108.157.87.0/24 -j DROP
 
@@ -39920,15 +39950,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 108.159.52.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 108.159.52.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 108.159.55.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 108.159.55.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 108.159.56.0/21 in comment=7566772d626f7473
--A ufw-user-input -s 108.159.56.0/21 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 108.159.64.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 108.159.64.0/22 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 108.159.70.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 108.159.70.0/23 -j DROP
@@ -42552,6 +42573,9 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.9.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.9.0/24 -j DROP
 
+### tuple ### deny any any 0.0.0.0/0 any 130.137.12.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.12.0/24 -j DROP
+
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.14.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.14.0/24 -j DROP
 
@@ -42564,14 +42588,38 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.47.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.47.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 130.137.78.0/23 in comment=7566772d626f7473
--A ufw-user-input -s 130.137.78.0/23 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 130.137.63.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.63.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.78.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.78.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.80.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.80.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.82.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.82.0/24 -j DROP
 
+### tuple ### deny any any 0.0.0.0/0 any 130.137.85.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.85.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.89.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.89.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.99.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.99.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.102.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.102.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.105.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.105.0/24 -j DROP
+
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.108.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.108.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.111.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.111.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.112.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.112.0/24 -j DROP
@@ -42579,8 +42627,17 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.124.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.124.0/24 -j DROP
 
+### tuple ### deny any any 0.0.0.0/0 any 130.137.127.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.127.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.136.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.136.0/24 -j DROP
+
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.141.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.141.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.147.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.147.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.150.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.150.0/24 -j DROP
@@ -42597,8 +42654,11 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.185.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.185.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 130.137.231.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 130.137.231.0/24 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 130.137.227.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.227.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 130.137.230.0/23 in comment=7566772d626f7473
+-A ufw-user-input -s 130.137.230.0/23 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 130.137.253.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.137.253.0/24 -j DROP
@@ -42804,8 +42864,8 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 130.254.40.0/22 in comment=7566772d626f7473
 -A ufw-user-input -s 130.254.40.0/22 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 130.254.44.0/23 in comment=7566772d626f7473
--A ufw-user-input -s 130.254.44.0/23 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 130.254.44.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 130.254.44.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 130.254.47.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 130.254.47.0/24 -j DROP
@@ -48126,9 +48186,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 151.240.97.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.240.97.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 151.240.98.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 151.240.98.0/24 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 151.240.128.0/20 in comment=7566772d626f7473
 -A ufw-user-input -s 151.240.128.0/20 -j DROP
 
@@ -48225,8 +48282,11 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 151.241.67.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.241.67.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 151.241.68.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 151.241.68.0/22 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 151.241.68.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 151.241.68.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 151.241.70.0/23 in comment=7566772d626f7473
+-A ufw-user-input -s 151.241.70.0/23 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 151.241.73.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.241.73.0/24 -j DROP
@@ -48300,9 +48360,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 151.241.234.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.241.234.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 151.242.5.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 151.242.5.0/24 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 151.242.18.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.242.18.0/24 -j DROP
 
@@ -48335,9 +48392,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 151.242.87.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.242.87.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 151.242.91.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 151.242.91.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 151.242.99.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.242.99.0/24 -j DROP
@@ -48428,9 +48482,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 151.243.175.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.243.175.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 151.243.184.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 151.243.184.0/22 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 151.243.201.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 151.243.201.0/24 -j DROP
@@ -48939,8 +48990,20 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 152.65.222.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 152.65.222.0/23 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 152.65.224.0/19 in comment=7566772d626f7473
--A ufw-user-input -s 152.65.224.0/19 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 152.65.224.0/20 in comment=7566772d626f7473
+-A ufw-user-input -s 152.65.224.0/20 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 152.65.240.0/21 in comment=7566772d626f7473
+-A ufw-user-input -s 152.65.240.0/21 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 152.65.249.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 152.65.249.0/24 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 152.65.250.0/23 in comment=7566772d626f7473
+-A ufw-user-input -s 152.65.250.0/23 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 152.65.252.0/22 in comment=7566772d626f7473
+-A ufw-user-input -s 152.65.252.0/22 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 152.89.28.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 152.89.28.0/23 -j DROP
@@ -49073,6 +49136,9 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 152.233.32.0/22 in comment=7566772d626f7473
 -A ufw-user-input -s 152.233.32.0/22 -j DROP
+
+### tuple ### deny any any 0.0.0.0/0 any 152.233.36.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 152.233.36.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 153.12.0.0/16 in comment=7566772d626f7473
 -A ufw-user-input -s 153.12.0.0/16 -j DROP
@@ -50583,9 +50649,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 155.117.121.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 155.117.121.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 155.117.144.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 155.117.144.0/22 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 155.117.161.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 155.117.161.0/24 -j DROP
 
@@ -51432,9 +51495,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 157.254.217.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 157.254.217.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 157.254.218.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 157.254.218.0/24 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 157.254.226.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 157.254.226.0/24 -j DROP
 
@@ -51756,8 +51816,8 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 159.48.175.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 159.48.175.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 159.48.176.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 159.48.176.0/24 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 159.48.176.0/23 in comment=7566772d626f7473
+-A ufw-user-input -s 159.48.176.0/23 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 159.60.0.0/20 in comment=7566772d626f7473
 -A ufw-user-input -s 159.60.0.0/20 -j DROP
@@ -52601,9 +52661,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 162.141.71.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 162.141.71.0/24 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 162.141.96.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 162.141.96.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 162.141.104.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 162.141.104.0/23 -j DROP
@@ -58002,6 +58059,9 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 173.82.104.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 173.82.104.0/24 -j DROP
 
+### tuple ### deny any any 0.0.0.0/0 any 173.82.108.0/24 in comment=7566772d626f7473
+-A ufw-user-input -s 173.82.108.0/24 -j DROP
+
 ### tuple ### deny any any 0.0.0.0/0 any 173.82.125.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 173.82.125.0/24 -j DROP
 
@@ -58281,8 +58341,8 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 173.231.232.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 173.231.232.0/23 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 173.231.236.0/23 in comment=7566772d626f7473
--A ufw-user-input -s 173.231.236.0/23 -j DROP
+### tuple ### deny any any 0.0.0.0/0 any 173.231.236.0/22 in comment=7566772d626f7473
+-A ufw-user-input -s 173.231.236.0/22 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 173.231.240.0/20 in comment=7566772d626f7473
 -A ufw-user-input -s 173.231.240.0/20 -j DROP
@@ -62861,9 +62921,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 185.45.192.0/22 in comment=7566772d626f7473
 -A ufw-user-input -s 185.45.192.0/22 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 185.46.114.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 185.46.114.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 185.46.180.0/22 in comment=7566772d626f7473
 -A ufw-user-input -s 185.46.180.0/22 -j DROP
@@ -71763,9 +71820,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 193.141.92.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 193.141.92.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 193.142.18.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 193.142.18.0/24 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 193.142.58.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 193.142.58.0/24 -j DROP
 
@@ -75216,9 +75270,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 196.220.0.0/19 in comment=7566772d626f7473
 -A ufw-user-input -s 196.220.0.0/19 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 196.220.128.0/19 in comment=7566772d626f7473
--A ufw-user-input -s 196.220.128.0/19 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 196.220.192.0/20 in comment=7566772d626f7473
 -A ufw-user-input -s 196.220.192.0/20 -j DROP
 
@@ -75305,12 +75356,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 197.214.208.0/21 in comment=7566772d626f7473
 -A ufw-user-input -s 197.214.208.0/21 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 197.214.224.0/20 in comment=7566772d626f7473
--A ufw-user-input -s 197.214.224.0/20 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 197.214.249.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 197.214.249.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 197.221.0.0/18 in comment=7566772d626f7473
 -A ufw-user-input -s 197.221.0.0/18 -j DROP
@@ -76721,9 +76766,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 
 ### tuple ### deny any any 0.0.0.0/0 any 199.103.90.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 199.103.90.0/23 -j DROP
-
-### tuple ### deny any any 0.0.0.0/0 any 199.103.94.0/24 in comment=7566772d626f7473
--A ufw-user-input -s 199.103.94.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 199.103.122.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 199.103.122.0/24 -j DROP
@@ -85857,9 +85899,6 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 ### tuple ### deny any any 0.0.0.0/0 any 216.97.225.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 216.97.225.0/24 -j DROP
 
-### tuple ### deny any any 0.0.0.0/0 any 216.97.226.0/23 in comment=7566772d626f7473
--A ufw-user-input -s 216.97.226.0/23 -j DROP
-
 ### tuple ### deny any any 0.0.0.0/0 any 216.97.230.0/23 in comment=7566772d626f7473
 -A ufw-user-input -s 216.97.230.0/23 -j DROP
 
@@ -87959,9 +87998,6 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 ### tuple ### deny any any ::/0 any 2001:67c:2070::/48 in comment=7566772d626f7473
 -A ufw6-user-input -s 2001:67c:2070::/48 -j DROP
 
-### tuple ### deny any any ::/0 any 2001:67c:21b4::/48 in comment=7566772d626f7473
--A ufw6-user-input -s 2001:67c:21b4::/48 -j DROP
-
 ### tuple ### deny any any ::/0 any 2001:67c:2c3c::/48 in comment=7566772d626f7473
 -A ufw6-user-input -s 2001:67c:2c3c::/48 -j DROP
 
@@ -88157,8 +88193,8 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 ### tuple ### deny any any ::/0 any 2001:bc8:5000::/38 in comment=7566772d626f7473
 -A ufw6-user-input -s 2001:bc8:5000::/38 -j DROP
 
-### tuple ### deny any any ::/0 any 2001:d88::/32 in comment=7566772d626f7473
--A ufw6-user-input -s 2001:d88::/32 -j DROP
+### tuple ### deny any any ::/0 any 2001:d88::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2001:d88::/48 -j DROP
 
 ### tuple ### deny any any ::/0 any 2001:dc1::/48 in comment=7566772d626f7473
 -A ufw6-user-input -s 2001:dc1::/48 -j DROP
@@ -88349,11 +88385,8 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 ### tuple ### deny any any ::/0 any 2001:1838:3000::/40 in comment=7566772d626f7473
 -A ufw6-user-input -s 2001:1838:3000::/40 -j DROP
 
-### tuple ### deny any any ::/0 any 2001:1838:4000::/36 in comment=7566772d626f7473
--A ufw6-user-input -s 2001:1838:4000::/36 -j DROP
-
-### tuple ### deny any any ::/0 any 2001:1838:5000::/40 in comment=7566772d626f7473
--A ufw6-user-input -s 2001:1838:5000::/40 -j DROP
+### tuple ### deny any any ::/0 any 2001:1838:4000::/35 in comment=7566772d626f7473
+-A ufw6-user-input -s 2001:1838:4000::/35 -j DROP
 
 ### tuple ### deny any any ::/0 any 2001:1838:6000::/46 in comment=7566772d626f7473
 -A ufw6-user-input -s 2001:1838:6000::/46 -j DROP
@@ -91079,8 +91112,14 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 ### tuple ### deny any any ::/0 any 2600:1902:50::/44 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1902:50::/44 -j DROP
 
-### tuple ### deny any any ::/0 any 2600:1902:80::/43 in comment=7566772d626f7473
--A ufw6-user-input -s 2600:1902:80::/43 -j DROP
+### tuple ### deny any any ::/0 any 2600:1902:60::/44 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1902:60::/44 -j DROP
+
+### tuple ### deny any any ::/0 any 2600:1902:90::/44 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1902:90::/44 -j DROP
+
+### tuple ### deny any any ::/0 any 2600:1902:b0::/44 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1902:b0::/44 -j DROP
 
 ### tuple ### deny any any ::/0 any 2600:1902:d0::/44 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1902:d0::/44 -j DROP
@@ -91094,23 +91133,32 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 ### tuple ### deny any any ::/0 any 2600:1902:140::/43 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1902:140::/43 -j DROP
 
+### tuple ### deny any any ::/0 any 2600:1902:170::/44 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1902:170::/44 -j DROP
+
+### tuple ### deny any any ::/0 any 2600:1902:190::/44 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1902:190::/44 -j DROP
+
 ### tuple ### deny any any ::/0 any 2600:1902:1a0::/44 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1902:1a0::/44 -j DROP
 
 ### tuple ### deny any any ::/0 any 2600:1902:1d0::/44 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1902:1d0::/44 -j DROP
 
-### tuple ### deny any any ::/0 any 2600:1902:1f0::/44 in comment=7566772d626f7473
--A ufw6-user-input -s 2600:1902:1f0::/44 -j DROP
+### tuple ### deny any any ::/0 any 2600:1902:1e0::/43 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1902:1e0::/43 -j DROP
 
 ### tuple ### deny any any ::/0 any 2600:1902:230::/44 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1902:230::/44 -j DROP
 
+### tuple ### deny any any ::/0 any 2600:1902:250::/44 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1902:250::/44 -j DROP
+
 ### tuple ### deny any any ::/0 any 2600:1902:270::/44 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1902:270::/44 -j DROP
 
-### tuple ### deny any any ::/0 any 2600:1902:280::/44 in comment=7566772d626f7473
--A ufw6-user-input -s 2600:1902:280::/44 -j DROP
+### tuple ### deny any any ::/0 any 2600:1902:280::/43 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1902:280::/43 -j DROP
 
 ### tuple ### deny any any ::/0 any 2600:1902:2a0::/44 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1902:2a0::/44 -j DROP
@@ -91229,8 +91277,8 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 ### tuple ### deny any any ::/0 any 2600:1f13:8000::/33 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1f13:8000::/33 -j DROP
 
-### tuple ### deny any any ::/0 any 2600:1f14::/37 in comment=7566772d626f7473
--A ufw6-user-input -s 2600:1f14::/37 -j DROP
+### tuple ### deny any any ::/0 any 2600:1f14::/35 in comment=7566772d626f7473
+-A ufw6-user-input -s 2600:1f14::/35 -j DROP
 
 ### tuple ### deny any any ::/0 any 2600:1f14:800::/37 in comment=7566772d626f7473
 -A ufw6-user-input -s 2600:1f14:800::/37 -j DROP
@@ -91466,56 +91514,107 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 ### tuple ### deny any any ::/0 any 2804:1000::/20 in comment=7566772d626f7473
 -A ufw6-user-input -s 2804:1000::/20 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2000::/21 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2000::/21 -j DROP
+### tuple ### deny any any ::/0 any 2804:2000::/20 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:2000::/20 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2800::/22 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2800::/22 -j DROP
+### tuple ### deny any any ::/0 any 2804:3000::/21 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3000::/21 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2c00::/24 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2c00::/24 -j DROP
+### tuple ### deny any any ::/0 any 2804:3800::/24 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3800::/24 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d00::/27 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d00::/27 -j DROP
+### tuple ### deny any any ::/0 any 2804:3900::/28 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3900::/28 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d20::/30 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d20::/30 -j DROP
+### tuple ### deny any any ::/0 any 2804:3910::/29 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3910::/29 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d24::/33 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d24::/33 -j DROP
+### tuple ### deny any any ::/0 any 2804:3918::/30 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3918::/30 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d24:8000::/35 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d24:8000::/35 -j DROP
+### tuple ### deny any any ::/0 any 2804:391c::/45 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391c::/45 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d24:a000::/35 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d24:a000::/35 -j DROP
+### tuple ### deny any any ::/0 any 2804:391c:8::/46 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391c:8::/46 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d24:c000::/34 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d24:c000::/34 -j DROP
+### tuple ### deny any any ::/0 any 2804:391c:e::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391c:e::/48 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d25::/32 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d25::/32 -j DROP
+### tuple ### deny any any ::/0 any 2804:391c:11::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391c:11::/48 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d26::/31 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d26::/31 -j DROP
+### tuple ### deny any any ::/0 any 2804:391c:12::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391c:12::/48 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d28::/29 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d28::/29 -j DROP
+### tuple ### deny any any ::/0 any 2804:391c:14::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391c:14::/48 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d30::/28 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d30::/28 -j DROP
+### tuple ### deny any any ::/0 any 2804:391c:1b::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391c:1b::/48 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d40::/26 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d40::/26 -j DROP
+### tuple ### deny any any ::/0 any 2804:391c:8000::/33 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391c:8000::/33 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2d80::/25 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2d80::/25 -j DROP
+### tuple ### deny any any ::/0 any 2804:391d::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391d::/32 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:2e00::/23 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:2e00::/23 -j DROP
+### tuple ### deny any any ::/0 any 2804:391e::/31 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:391e::/31 -j DROP
 
-### tuple ### deny any any ::/0 any 2804:3000::/20 in comment=7566772d626f7473
--A ufw6-user-input -s 2804:3000::/20 -j DROP
+### tuple ### deny any any ::/0 any 2804:3920::/27 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3920::/27 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3940::/26 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3940::/26 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3980::/25 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3980::/25 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3a00::/23 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3a00::/23 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3c00::/25 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3c00::/25 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3c80::/27 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3c80::/27 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3ca0::/28 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3ca0::/28 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cb0::/29 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cb0::/29 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cb8::/33 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cb8::/33 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cb8:8000::/34 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cb8:8000::/34 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cb8:c000::/36 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cb8:c000::/36 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cb8:f000::/36 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cb8:f000::/36 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cb9::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cb9::/32 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cba::/31 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cba::/31 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cbc::/30 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cbc::/30 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3cc0::/26 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3cc0::/26 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3d00::/24 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3d00::/24 -j DROP
+
+### tuple ### deny any any ::/0 any 2804:3e00::/23 in comment=7566772d626f7473
+-A ufw6-user-input -s 2804:3e00::/23 -j DROP
 
 ### tuple ### deny any any ::/0 any 2804:4000::/18 in comment=7566772d626f7473
 -A ufw6-user-input -s 2804:4000::/18 -j DROP
@@ -91547,8 +91646,398 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 ### tuple ### deny any any ::/0 any 2900::/8 in comment=7566772d626f7473
 -A ufw6-user-input -s 2900::/8 -j DROP
 
-### tuple ### deny any any ::/0 any 2a00::/7 in comment=7566772d626f7473
--A ufw6-user-input -s 2a00::/7 -j DROP
+### tuple ### deny any any ::/0 any 2a00::/20 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00::/20 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1000::/22 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1000::/22 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1400::/23 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1400::/23 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1600::/27 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1600::/27 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1620::/28 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1620::/28 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1630::/34 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1630::/34 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1630:4000::/36 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1630:4000::/36 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1630:5000::/39 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1630:5000::/39 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1630:5200::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1630:5200::/48 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1631::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1631::/32 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1632::/31 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1632::/31 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1634::/30 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1634::/30 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1638::/29 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1638::/29 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1640::/26 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1640::/26 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1680::/25 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1680::/25 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1700::/24 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1700::/24 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:1800::/21 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:1800::/21 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:2000::/19 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:2000::/19 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:4000::/18 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:4000::/18 -j DROP
+
+### tuple ### deny any any ::/0 any 2a00:8000::/17 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a00:8000::/17 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01::/24 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01::/24 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:100::/28 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:100::/28 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:110::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:110::/32 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:111::/35 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:111::/35 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:111:2000::/36 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:111:2000::/36 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:111:4000::/46 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:111:4000::/46 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:111:4004::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:111:4004::/48 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:111:f000::/36 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:111:f000::/36 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:112::/31 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:112::/31 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:114::/30 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:114::/30 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:118::/29 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:118::/29 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:120::/27 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:120::/27 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:140::/26 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:140::/26 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:180::/25 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:180::/25 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:200::/23 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:200::/23 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:400::/22 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:400::/22 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:800::/21 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:800::/21 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:1000::/20 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:1000::/20 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:2000::/19 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:2000::/19 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:4000::/18 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:4000::/18 -j DROP
+
+### tuple ### deny any any ::/0 any 2a01:8000::/17 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a01:8000::/17 -j DROP
+
+### tuple ### deny any any ::/0 any 2a02::/15 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a02::/15 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04::/18 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04::/18 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:4000::/20 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:4000::/20 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5000::/21 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5000::/21 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5800::/23 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5800::/23 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5a00::/24 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5a00::/24 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b00::/25 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b00::/25 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b80::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b80::/32 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81::/35 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81::/35 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2000::/44 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2000::/44 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2010::/47 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2010::/47 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:201f::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:201f::/48 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2020::/43 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2020::/43 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2040::/42 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2040::/42 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2080::/41 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2080::/41 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2100::/40 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2100::/40 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2200::/39 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2200::/39 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2400::/38 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2400::/38 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:2800::/37 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:2800::/37 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:3000::/36 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:3000::/36 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:4000::/34 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:4000::/34 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b81:8000::/33 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b81:8000::/33 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b82::/31 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b82::/31 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b84::/30 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b84::/30 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b88::/29 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b88::/29 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5b90::/28 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5b90::/28 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5ba0::/27 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5ba0::/27 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5bc0::/26 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5bc0::/26 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:5c00::/22 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:5c00::/22 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:6000::/19 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:6000::/19 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:8000::/20 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:8000::/20 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:9000::/23 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:9000::/23 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:9200::/25 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:9200::/25 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:9280::/26 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:9280::/26 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92c0::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92c0::/32 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92c1::/46 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92c1::/46 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92c1:4::/47 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92c1:4::/47 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92c1:6::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92c1:6::/48 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92c5::/45 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92c5::/45 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92c5:8::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92c5:8::/48 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92c7::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92c7::/32 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92c8::/29 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92c8::/29 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92d0::/28 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92d0::/28 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:92e0::/27 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:92e0::/27 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:9300::/24 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:9300::/24 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:9400::/22 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:9400::/22 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:9800::/21 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:9800::/21 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:a000::/19 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:a000::/19 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c000::/22 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c000::/22 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c400::/23 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c400::/23 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c600::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c600::/32 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c601::/34 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c601::/34 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c602::/31 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c602::/31 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c604::/30 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c604::/30 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c608::/29 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c608::/29 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c610::/28 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c610::/28 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c620::/27 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c620::/27 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c640::/26 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c640::/26 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c680::/25 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c680::/25 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c700::/24 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c700::/24 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:c800::/21 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:c800::/21 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:d000::/20 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:d000::/20 -j DROP
+
+### tuple ### deny any any ::/0 any 2a04:e000::/19 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a04:e000::/19 -j DROP
+
+### tuple ### deny any any ::/0 any 2a05::/16 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a05::/16 -j DROP
+
+### tuple ### deny any any ::/0 any 2a06::/16 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a06::/16 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07::/18 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07::/18 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:4000::/19 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:4000::/19 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:6000::/21 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:6000::/21 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:6800::/25 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:6800::/25 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:6880::/26 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:6880::/26 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68c0::/46 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68c0::/46 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68c0:4::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68c0:4::/48 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68c0:ffff::/48 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68c0:ffff::/48 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68c1::/32 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68c1::/32 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68c2::/31 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68c2::/31 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68c4::/30 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68c4::/30 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68c8::/29 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68c8::/29 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68d0::/28 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68d0::/28 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:68e0::/27 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:68e0::/27 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:6900::/24 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:6900::/24 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:6a00::/23 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:6a00::/23 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:6c00::/22 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:6c00::/22 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:7000::/20 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:7000::/20 -j DROP
+
+### tuple ### deny any any ::/0 any 2a07:8000::/17 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a07:8000::/17 -j DROP
+
+### tuple ### deny any any ::/0 any 2a08::/13 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a08::/13 -j DROP
+
+### tuple ### deny any any ::/0 any 2a10::/12 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a10::/12 -j DROP
+
+### tuple ### deny any any ::/0 any 2a20::/11 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a20::/11 -j DROP
+
+### tuple ### deny any any ::/0 any 2a40::/10 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a40::/10 -j DROP
+
+### tuple ### deny any any ::/0 any 2a80::/9 in comment=7566772d626f7473
+-A ufw6-user-input -s 2a80::/9 -j DROP
+
+### tuple ### deny any any ::/0 any 2b00::/8 in comment=7566772d626f7473
+-A ufw6-user-input -s 2b00::/8 -j DROP
 
 ### tuple ### deny any any ::/0 any 2c00::/13 in comment=7566772d626f7473
 -A ufw6-user-input -s 2c00::/13 -j DROP
