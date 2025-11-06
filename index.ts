@@ -27,14 +27,14 @@ async function fetchBadASNs(): Promise<string[]> {
 }
 
 async function fetchASNData(asn: string): Promise<{ ipv4: string[], ipv6: string[] }> {
-    const url = `https://stat.ripe.net/data/ris-prefixes/data.json?list_prefixes=true&resource=${asn}`;
+    const url = `https://stat.ripe.net/data/ris-prefixes/data.json?list_prefixes=true&types=o&resource=${asn}`;
     try {
         const response = await fetch(url, { headers: { 'User-Agent': 'Bun/1.0' } });
         if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
         const data = await response.json() as RipeStatResponse;
         return {
-            ipv4: [...(data.data.prefixes.v4.originating || []), ...(data.data.prefixes.v4.transiting || [])],
-            ipv6: [...(data.data.prefixes.v6.originating || []), ...(data.data.prefixes.v6.transiting || [])],
+            ipv4: [...(data.data.prefixes.v4.originating || [])],
+            ipv6: [...(data.data.prefixes.v6.originating || [])],
         };
     } catch (error) {
         console.warn(`\nFailed to fetch data for ${asn}: ${(error as Error).message}. Retrying in 5s...`);
