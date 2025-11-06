@@ -1,83 +1,120 @@
 # ufw-bots
 
-Script to automatically block IPs from datacenter ASNs (https://github.com/brianhama/bad-asn-list)
+This project provides lists of datacenter IP addresses and scripts to help you block them using `ufw` or `iptables`. By blocking these IPs, you can reduce the amount of bot traffic to your servers.
 
-`I have excluded the following ASNs from the above list`
-- Cloudflare (See https://www.cloudflare.com/ips/ for list of IPs to block if you want)
+A GitHub workflow automatically updates the IP lists every 6 hours. You have two ways to use these lists:
 
-List of IPs is available at [files/ipv4.txt](files/ipv4.txt) and [files/ipv6.txt](files/ipv6.txt) and [files/combined.txt](files/combined.txt)
+1.  **Recommended (Safer):** Clone this repository and run the scripts locally. This allows you to review the code before it runs on your system.
+2.  **Advanced (Less Safe):** Directly download and run the scripts from the repository. This is not recommended as it involves executing code from the internet without prior review.
 
-A bash script for ufw is available at [files/ufw.sh](files/ufw.sh)
+## Safety Warning
 
-A bash script for iptables is available at [files/iptables.sh](files/iptables.sh). Requires `ipset` and `pv` to be installed.
+**Modifying firewall rules can be dangerous and may lock you out of your server if not done carefully.** Before using these scripts, please ensure you have:
 
-`>> The lists/files are automatically updated every 6 hours.`
+1.  **Backup access to your server:** This could be through a cloud provider's web console or physical access.
+2.  **Whitelisted your own IP address:** Make sure your current IP address is allowed by your firewall rules to prevent losing access. You can add a rule like `sudo ufw allow from YOUR_IP_ADDRESS to any` to allow your own IP.
 
-You can download the latest script using the following commands.
+**Use these scripts at your own risk.**
 
-### Manually download the script and run
+## Prerequisites
 
-#### UFW
+You must have [Bun](https://bun.sh) installed on your system to generate the firewall scripts.
 
-```bash
-wget https://raw.githubusercontent.com/brahma-dev/ufw-bots/master/files/ufw.sh
-cat ufw.sh
-chmod +x ufw.sh
-sudo ./ufw.sh
-```
-#### IPTABLES
+## Installation and Usage (Recommended Method)
 
-```bash
-wget https://raw.githubusercontent.com/brahma-dev/ufw-bots/master/files/iptables.sh
-cat iptables.sh
-chmod +x iptables.sh
-sudo ./iptables.sh
-```
+This is the recommended safe method for using `ufw-bots`. It allows you to review the code before running it.
 
-### One-Step 
+1.  **Clone the Repository**
 
-> Piping to bash is controversial, as it prevents you from reading code that is about to run on your system. Not recommended. Only use it if you know what you're doing. Run it frequently to have the latest IPs.
+    ```bash
+    git clone https://github.com/brahma-dev/ufw-bots.git
+    cd ufw-bots
+    ```
 
-#### UFW
+2.  **Install Dependencies**
 
-```bash
-curl -sL https://raw.githubusercontent.com/brahma-dev/ufw-bots/master/files/ufw.sh | sudo -E bash -
-```
+    ```bash
+    bun install
+    ```
 
-#### IPTABLES
+3.  **Generate the Scripts**
 
-```bash
-curl -sL https://raw.githubusercontent.com/brahma-dev/ufw-bots/master/files/iptables.sh | sudo -E bash -
-```
-### Uninstall
+    ```bash
+    bun start
+    ```
 
-In case you want to remove the firewall rules created by this script
+    This command will generate `ufw.sh` and `iptables.sh` in the `files` directory.
 
-#### UFW
+4.  **Run the Script**
+
+    You can now inspect the generated scripts. When you are ready, run the appropriate script for your firewall:
+
+    *   **For UFW:**
+
+        ```bash
+        sudo ./files/ufw.sh
+        ```
+
+    *   **For IPTables:**
+
+        (Requires `ipset` and `pv` to be installed)
+
+        ```bash
+        sudo ./files/iptables.sh
+        ```
+
+## Automating with Cron
+
+To keep your blocklist updated automatically, you can set up a cron job. The safest way to run scheduled tasks that require root permissions is to add them to the `root` user's crontab.
+
+1.  Open the root user's crontab editor.
+
+    ```bash
+    sudo crontab -e
+    ```
+
+2.  Add one of the following lines to the file. This will run the update script every 6 hours. Make sure to replace `/path/to/ufw-bots` with the actual path to where you cloned the repository.
+
+    *   **For UFW:**
+
+        ```cron
+        0 */6 * * * cd /path/to/ufw-bots && bun install && bun start && ./files/ufw.sh
+        ```
+
+    *   **For IPTables:**
+
+        ```cron
+        0 */6 * * * cd /path/to/ufw-bots && bun install && bun start && ./files/iptables.sh
+        ```
+
+3.  Save and exit the editor. The cron job is now active.
+
+## Uninstall
+
+If you need to remove the firewall rules added by this script, follow these instructions.
+
+### UFW
 
 ```bash
 echo "Clearing old ipv4 rules"
 sudo sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\n.*DROP//gm" /etc/ufw/user.rules
 sudo sed -i 'N;/^\n$/d;P;D' /etc/ufw/user.rules
-
 echo "Clearing old ipv6 rules"
 sudo sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\n.*DROP//gm" /etc/ufw/user6.rules
 sudo sed -i 'N;/^\n$/d;P;D' /etc/ufw/user6.rules
+echo "Reloading UFW to apply changes..."
+sudo ufw reload
+echo "UFW rules removed."
 ```
 
-#### IPTABLES
+### IPTables
 
 ```bash
 export SET_NAME="brahma_iplist"
 echo "Clearing iptable rules"
 for i in `seq -w 1 10`; do
-sudo iptables -D INPUT -m set --match-set "${SET_NAME}_$i" src -j DROP 2>/dev/null || true;
-sudo ipset -X "${SET_NAME}_$i"
+    sudo iptables -D INPUT -m set --match-set "${SET_NAME}_$i" src -j DROP 2>/dev/null || true;
+    sudo ipset -X "${SET_NAME}_$i"
 done
 ```
-
-This will print warning that `The set with the given name does not exist`. It can be safely ignored.
-
-### Help Needed
-
-A script for cronjob that can download the two list of IPs, parse/validate the IPs and update the firewall likewise. I don't happen to have the bash skill/time to pull it off.
+*Note: The uninstall script for IPTables may print a warning that "The set with the given name does not exist". This can be safely ignored.*
