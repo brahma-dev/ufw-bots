@@ -50,8 +50,18 @@ function generateUFWScript(ipv4Subnets: string[], ipv6Subnets: string[]): string
     const ipv6Rules = ipv6Subnets.map(subnet =>
         `### tuple ### deny any any ::/0 any ${subnet} in comment=7566772d626f7473\n-A ufw6-user-input -s ${subnet} -j DROP`
     ).join("\n\n");
-    return `#!/usr/bin/env bash
+    return `#!/bin/sh
 # This script clears old firewall rules created by this tool and applies a new set.
+
+set -e # Exit immediately if a command exits with a non-zero status.
+
+# Create temporary files securely using mktemp.
+IPV4_RULES_FILE=$(mktemp)
+IPV6_RULES_FILE=$(mktemp)
+
+# Set a trap to ensure temporary files are removed on script exit,
+# whether it's successful, an error, or an interruption.
+trap 'rm -f "$IPV4_RULES_FILE" "$IPV6_RULES_FILE"' EXIT HUP INT QUIT TERM
 
 echo "==> Clearing old IPv4 rules..."
 sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\\n.*DROP//gm" /etc/ufw/user.rules
@@ -61,14 +71,20 @@ echo "==> Clearing old IPv6 rules..."
 sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\\n.*DROP//gm" /etc/ufw/user6.rules
 sed -i 'N;/^\\n$/d;P;D' /etc/ufw/user6.rules
 
-IPV4_RULES="${ipv4Rules}"
-IPV6_RULES="${ipv6Rules}"
+# Write the new rules into the temporary files.
+cat <<'EOF' > "$IPV4_RULES_FILE"
+${ipv4Rules}
+EOF
+
+cat <<'EOF' > "$IPV6_RULES_FILE"
+${ipv6Rules}
+EOF
 
 echo "==> Applying new IPv4 rules..."
-sed -i.bak.clean '/### RULES ###/r /dev/stdin' /etc/ufw/user.rules <<< "$IPV4_RULES"
+sed -i.bak.clean '/### RULES ###/r '"$IPV4_RULES_FILE"'' /etc/ufw/user.rules
 
 echo "==> Applying new IPv6 rules..."
-sed -i.bak.clean '/### RULES ###/r /dev/stdin' /etc/ufw/user6.rules <<< "$IPV6_RULES"
+sed -i.bak.clean '/### RULES ###/r '"$IPV6_RULES_FILE"'' /etc/ufw/user6.rules
 
 echo "==> Reloading UFW..."
 ufw reload
@@ -102,7 +118,7 @@ async function main() {
         const initialIpv6 = Array.from(ipv6Set).filter(ip => ip !== "::/0");
         
         console.log(`\nCollected ${initialIpv4.length} unique IPv4 and ${initialIpv6.length} unique IPv6 prefixes.`);
-        console.log("Merging subnets with cidr-tools...");
+        console.log("Merging subnets...");
 
         const mergedIpv4 = cidrTools.mergeCidr(initialIpv4);
         const mergedIpv6 = cidrTools.mergeCidr(initialIpv6);

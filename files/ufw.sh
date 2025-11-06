@@ -1,5 +1,15 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # This script clears old firewall rules created by this tool and applies a new set.
+
+set -e # Exit immediately if a command exits with a non-zero status.
+
+# Create temporary files securely using mktemp.
+IPV4_RULES_FILE=$(mktemp)
+IPV6_RULES_FILE=$(mktemp)
+
+# Set a trap to ensure temporary files are removed on script exit,
+# whether it's successful, an error, or an interruption.
+trap 'rm -f "$IPV4_RULES_FILE" "$IPV6_RULES_FILE"' EXIT HUP INT QUIT TERM
 
 echo "==> Clearing old IPv4 rules..."
 sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\n.*DROP//gm" /etc/ufw/user.rules
@@ -9,7 +19,9 @@ echo "==> Clearing old IPv6 rules..."
 sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\n.*DROP//gm" /etc/ufw/user6.rules
 sed -i 'N;/^\n$/d;P;D' /etc/ufw/user6.rules
 
-IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=7566772d626f7473
+# Write the new rules into the temporary files.
+cat <<'EOF' > "$IPV4_RULES_FILE"
+### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=7566772d626f7473
 -A ufw-user-input -s 1.44.96.0/24 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 1.178.1.0/24 in comment=7566772d626f7473
@@ -87805,8 +87817,11 @@ IPV4_RULES="### tuple ### deny any any 0.0.0.0/0 any 1.44.96.0/24 in comment=756
 -A ufw-user-input -s 223.254.224.0/19 -j DROP
 
 ### tuple ### deny any any 0.0.0.0/0 any 223.255.248.0/22 in comment=7566772d626f7473
--A ufw-user-input -s 223.255.248.0/22 -j DROP"
-IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626f7473
+-A ufw-user-input -s 223.255.248.0/22 -j DROP
+EOF
+
+cat <<'EOF' > "$IPV6_RULES_FILE"
+### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626f7473
 -A ufw6-user-input -s 2001::/32 -j DROP
 
 ### tuple ### deny any any ::/0 any 2001:310::/32 in comment=7566772d626f7473
@@ -90714,13 +90729,14 @@ IPV6_RULES="### tuple ### deny any any ::/0 any 2001::/32 in comment=7566772d626
 -A ufw6-user-input -s 2c0f:fea0::/29 -j DROP
 
 ### tuple ### deny any any ::/0 any 2c0f:fea8::/32 in comment=7566772d626f7473
--A ufw6-user-input -s 2c0f:fea8::/32 -j DROP"
+-A ufw6-user-input -s 2c0f:fea8::/32 -j DROP
+EOF
 
 echo "==> Applying new IPv4 rules..."
-sed -i.bak.clean '/### RULES ###/r /dev/stdin' /etc/ufw/user.rules <<< "$IPV4_RULES"
+sed -i.bak.clean '/### RULES ###/r '"$IPV4_RULES_FILE"'' /etc/ufw/user.rules
 
 echo "==> Applying new IPv6 rules..."
-sed -i.bak.clean '/### RULES ###/r /dev/stdin' /etc/ufw/user6.rules <<< "$IPV6_RULES"
+sed -i.bak.clean '/### RULES ###/r '"$IPV6_RULES_FILE"'' /etc/ufw/user6.rules
 
 echo "==> Reloading UFW..."
 ufw reload
