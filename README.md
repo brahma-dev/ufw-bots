@@ -9,11 +9,6 @@ I have excluded the following ASNs from the above list. See `notSoBadASNs` in `i
 
 A GitHub workflow automatically updates the IP lists in this repo every 6 hours. You can directly download those if you need them for some other purpose like risk scores...
 
-You have two ways to use the scripts:
-
-1.  **Recommended (Safer):** Clone this repository and run the scripts locally. This allows you to review the code before it runs on your system.
-2.  **Advanced (Less Safe):** Directly download and run the scripts from the repository. This is not recommended as it involves executing code from the internet without prior review.
-
 ## Safety Warning
 
 **Modifying firewall rules can be dangerous and may lock you out of your server if not done carefully.** Before using these scripts, please ensure you have:
@@ -27,9 +22,7 @@ You have two ways to use the scripts:
 
 You must have [Bun](https://bun.sh) installed on your system to generate the firewall scripts.
 
-## Installation and Usage (Recommended Method)
-
-This is the recommended safe method for using `ufw-bots`. It allows you to review the code before running it.
+## Installation and Usage
 
 1.  **Clone the Repository**
 
