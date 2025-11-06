@@ -37,17 +37,17 @@ This is the recommended safe method for using `ufw-bots`. It allows you to revie
     bun install
     ```
 
-3.  **Generate the Scripts**
+3.  **Generate the lists**
 
     ```bash
     bun start
     ```
 
-    This command will generate `ufw.sh` and `iptables.sh` in the `files` directory.
+    This command will generate `ipv4.txt`,`ipv6.txt` and `combined.txt` in the `files` directory.
 
 4.  **Run the Script**
 
-    You can now inspect the generated scripts. When you are ready, run the appropriate script for your firewall:
+    You can inspect the scripts. When you are ready, run the appropriate script for your firewall:
 
     *   **For UFW:**
 
@@ -57,7 +57,7 @@ This is the recommended safe method for using `ufw-bots`. It allows you to revie
 
     *   **For IPTables:**
 
-        (Requires `ipset` and `pv` to be installed)
+        (Requires `ipset` to be installed)
 
         ```bash
         sudo ./files/iptables.sh
@@ -73,7 +73,7 @@ To keep your blocklist updated automatically, you can set up a cron job. The saf
     sudo crontab -e
     ```
 
-2.  Add one of the following lines to the file. This will run the update script every 6 hours. Make sure to replace `/path/to/ufw-bots` with the actual path to where you cloned the repository.
+2.  Add one of the following lines to the file. This will run the update script every 6 hours. Make sure to replace `/path/to/ufw-bots` with the actual path to where you cloned the repository. Replace `bun` with it's full path if it's not in root's $PATH
 
     *   **For UFW:**
 
@@ -81,10 +81,17 @@ To keep your blocklist updated automatically, you can set up a cron job. The saf
         0 */6 * * * cd /path/to/ufw-bots && bun install && bun start && ./files/ufw.sh
         ```
 
+        ```cron
+        0 */6 * * * cd /home/username/ufw-bots && /home/username/.bun/bin/bun install && /home/username/.bun/bin/bun start && ./files/ufw.sh
+        ```
+
     *   **For IPTables:**
 
         ```cron
         0 */6 * * * cd /path/to/ufw-bots && bun install && bun start && ./files/iptables.sh
+        ```
+        ```cron
+        0 */6 * * * cd /home/username/ufw-bots && /home/username/.bun/bin/bun install && /home/username/.bun/bin/bun start && ./files/iptables.sh
         ```
 
 3.  Save and exit the editor. The cron job is now active.
@@ -96,25 +103,17 @@ If you need to remove the firewall rules added by this script, follow these inst
 ### UFW
 
 ```bash
-echo "Clearing old ipv4 rules"
-sudo sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\n.*DROP//gm" /etc/ufw/user.rules
-sudo sed -i 'N;/^\n$/d;P;D' /etc/ufw/user.rules
-echo "Clearing old ipv6 rules"
-sudo sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\n.*DROP//gm" /etc/ufw/user6.rules
-sudo sed -i 'N;/^\n$/d;P;D' /etc/ufw/user6.rules
-echo "Reloading UFW to apply changes..."
-sudo ufw reload
-echo "UFW rules removed."
+cd /path/to/ufw-bots
+sudo ./files/ufw_remove.sh
 ```
 
 ### IPTables
 
 ```bash
-export SET_NAME="brahma_iplist"
-echo "Clearing iptable rules"
-for i in `seq -w 1 10`; do
-    sudo iptables -D INPUT -m set --match-set "${SET_NAME}_$i" src -j DROP 2>/dev/null || true;
-    sudo ipset -X "${SET_NAME}_$i"
-done
+cd /path/to/ufw-bots
+sudo ./files/iptables_remove.sh
 ```
-*Note: The uninstall script for IPTables may print a warning that "The set with the given name does not exist". This can be safely ignored.*
+
+### Help Needed
+
+Shell expert to vet / improve the scripts.

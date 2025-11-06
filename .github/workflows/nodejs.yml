@@ -38,7 +38,11 @@ jobs:
         git config --local user.email "me@brahma.world"
         git config --local user.name "Github Action Bot"
         git config --local commit.gpgsign false
-        git commit -m "Updated List" --allow-empty -- files
+        if [ -z "$(git status --porcelain)" ]; then
+          git commit -m "No change in the list" --allow-empty -- files
+        else
+          git commit -m "Updated List" -- files
+        fi
 
     - name: Push changes
       uses: ad-m/github-push-action@master

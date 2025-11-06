@@ -43,56 +43,6 @@ async function fetchASNData(asn: string): Promise<{ ipv4: string[], ipv6: string
     }
 }
 
-function generateUFWScript(ipv4Subnets: string[], ipv6Subnets: string[]): string {
-    const ipv4Rules = ipv4Subnets.map(subnet =>
-        `### tuple ### deny any any 0.0.0.0/0 any ${subnet} in comment=7566772d626f7473\n-A ufw-user-input -s ${subnet} -j DROP`
-    ).join("\n\n");
-    const ipv6Rules = ipv6Subnets.map(subnet =>
-        `### tuple ### deny any any ::/0 any ${subnet} in comment=7566772d626f7473\n-A ufw6-user-input -s ${subnet} -j DROP`
-    ).join("\n\n");
-    return `#!/bin/sh
-# This script clears old firewall rules created by this tool and applies a new set.
-
-set -e # Exit immediately if a command exits with a non-zero status.
-
-# Create temporary files securely using mktemp.
-IPV4_RULES_FILE=$(mktemp)
-IPV6_RULES_FILE=$(mktemp)
-
-# Set a trap to ensure temporary files are removed on script exit,
-# whether it's successful, an error, or an interruption.
-trap 'rm -f "$IPV4_RULES_FILE" "$IPV6_RULES_FILE"' EXIT HUP INT QUIT TERM
-
-echo "==> Clearing old IPv4 rules..."
-sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\\n.*DROP//gm" /etc/ufw/user.rules
-sed -i 'N;/^\\n$/d;P;D' /etc/ufw/user.rules
-
-echo "==> Clearing old IPv6 rules..."
-sed -z -i.bak.old -u "s/### tuple.* comment=7566772d626f7473\\n.*DROP//gm" /etc/ufw/user6.rules
-sed -i 'N;/^\\n$/d;P;D' /etc/ufw/user6.rules
-
-# Write the new rules into the temporary files.
-cat <<'EOF' > "$IPV4_RULES_FILE"
-${ipv4Rules}
-EOF
-
-cat <<'EOF' > "$IPV6_RULES_FILE"
-${ipv6Rules}
-EOF
-
-echo "==> Applying new IPv4 rules..."
-sed -i.bak.clean '/### RULES ###/r '"$IPV4_RULES_FILE"'' /etc/ufw/user.rules
-
-echo "==> Applying new IPv6 rules..."
-sed -i.bak.clean '/### RULES ###/r '"$IPV6_RULES_FILE"'' /etc/ufw/user6.rules
-
-echo "==> Reloading UFW..."
-ufw reload
-
-echo "UFW rules updated successfully."
-`;
-}
-
 async function main() {
     try {
         if (!existsSync(outputDir)) mkdirSync(outputDir, { recursive: true });
@@ -132,10 +82,6 @@ async function main() {
         console.log(`List of bad IPs saved to ${outputDir}/ipv6.txt`);
         await Bun.write(`${outputDir}/combined.txt`, `${mergedIpv4.join("\n")}\n${mergedIpv6.join("\n")}`);
         console.log(`List of bad IPs saved to ${outputDir}/combined.txt`);
-        const ufwScript = generateUFWScript(mergedIpv4, mergedIpv6);
-        await Bun.write(`${outputDir}/ufw.sh`, ufwScript);
-        chmodSync(`${outputDir}/ufw.sh`, 0o755);
-        console.log(`Batch file for ufw saved to ${outputDir}/ufw.sh`);
         
         console.log("\nScript finished successfully!");
 

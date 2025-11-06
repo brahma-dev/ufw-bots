@@ -1,13 +1,13 @@
 #!/bin/sh
 #
-# This script creates ipset lists from a list of IP subnets and adds rules
-# to the INPUT iptables chain to drop traffic from those sources.
+# This script creates ipset lists for IPv4 and IPv6 subnets and adds rules to
+# iptables and ip6tables to drop traffic from those sources.
 #
 # It is designed to be POSIX-compliant and run on any standard shell.
 #
 # USAGE:
-#   ./iptables.sh          - Use the local 'combined.txt' file.
-#   ./iptables.sh download - Download the list before applying.
+#   ./iptables.sh          - Use local 'ipv4.txt' and 'ipv6.txt' files.
+#   ./iptables.sh download - Download the latest lists before applying.
 #
 
 # --- Configuration ---
@@ -21,73 +21,81 @@ set -u
 # --- Variables ---
 # Get the absolute directory where the script is located.
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
-SET_NAME="bad_asn_ips"
-# By default, use the local combined.txt file from the same directory.
-IPFILE="${ROOT_DIR}/combined.txt"
-DOWNLOAD_URL="https://raw.githubusercontent.com/brahma-dev/ufw-bots/master/files/combined.txt"
+BASE_URL="https://raw.githubusercontent.com/brahma-dev/ufw-bots/master/files"
+
+# Configuration for IPv4
+IPV4_SET_NAME_BASE="bad_asn_ipv4"
+IPV4_FILE="${ROOT_DIR}/ipv4.txt"
+IPV4_URL="${BASE_URL}/ipv4.txt"
+
+# Configuration for IPv6
+IPV6_SET_NAME_BASE="bad_asn_ipv6"
+IPV6_FILE="${ROOT_DIR}/ipv6.txt"
+IPV6_URL="${BASE_URL}/ipv6.txt"
 
 # --- Argument Handling ---
-# Check if the first argument is "download".
 if [ "$#" -gt 0 ] && [ "$1" = "download" ]; then
-    echo "==> Download option specified. Fetching the latest block list..."
-    wget -q --progress=bar --show-progress -O "${IPFILE}" "${DOWNLOAD_URL}"
+    echo "==> Download option specified. Fetching the latest block lists..."
+    wget -q --progress=bar --show-progress -O "${IPV4_FILE}" "${IPV4_URL}"
+    wget -q --progress=bar --show-progress -O "${IPV6_FILE}" "${IPV6_URL}"
 else
-    echo "==> Using local IP list from ${IPFILE}"
-    if [ ! -f "${IPFILE}" ]; then
-        echo "Error: Local file not found at '${IPFILE}'" >&2
-        echo "Please generate it first, or run this script with the 'download' argument." >&2
+    echo "==> Using local IP lists from ${ROOT_DIR}/"
+    if [ ! -f "${IPV4_FILE}" ] || [ ! -f "${IPV6_FILE}" ]; then
+        echo "Error: One or both local files not found ('ipv4.txt', 'ipv6.txt')." >&2
+        echo "Please generate them first, or run this script with the 'download' argument." >&2
         exit 1
     fi
 fi
 
 # --- Temporary Directory and Cleanup ---
-# Create a secure temporary directory for split files.
 TMP_DIR="$(mktemp -d)"
-# Set a trap to ensure the temporary directory is removed on script exit,
-# whether it's successful, an error, or an interruption (Ctrl+C).
-trap 'echo "==> Cleaning up temporary files..."; rm -rf "${TMP_DIR}"' EXIT HUP INT QUIT TERM
+trap 'echo "==> Cleaning up temporary directory..."; rm -rf "${TMP_DIR}"' EXIT HUP INT QUIT TERM
 
-# --- Main Logic ---
-echo "==> Importing subnet list into ipset(s)..."
-# Use a subshell to avoid changing the main script's directory.
-(
-    cd "${TMP_DIR}"
-    # Split the main IP file into chunks that ipset can handle.
-    cat "${IPFILE}" | split --suffix-length=2 --numeric-suffixes=1 --lines=65536
+# --- Function to process an IP list ---
+# Arguments: $1=IP_FILE, $2=SET_NAME_BASE, $3=FAMILY, $4=IPTABLES_CMD
+process_ip_list() {
+    ip_file="$1"
+    set_name_base="$2"
+    family="$3" # 'inet' for IPv4, 'inet6' for IPv6
+    iptables_cmd="$4"
 
-    # Loop through the generated chunk files (e.g., x01, x02, ...).
-    # 'for file in x*' is a safe, portable way to iterate over files.
-    for SPLIT_FILE in x*; do
-        # If the input file was empty, 'split' creates no files, and the loop
-        # would fail on a literal "x*". This check prevents that.
-        [ -f "$SPLIT_FILE" ] || continue
+    echo "\n--- Processing ${family} rules ---"
 
-        # Get the numeric suffix from the filename (e.g., '01' from 'x01').
-        # 'sed' is a portable way to perform this substitution.
-        SUFFIX=$(echo "$SPLIT_FILE" | sed 's/x//')
-        CURRENT_SET="${SET_NAME}_${SUFFIX}"
+    # Use a subshell to avoid changing the main script's directory.
+    (
+        cd "${TMP_DIR}"
+        # Split the input file into manageable chunks.
+        cat "${ip_file}" | split --suffix-length=2 --numeric-suffixes=1 --lines=65536
 
-        echo "--> Processing chunk ${SUFFIX}: creating ipset '${CURRENT_SET}'"
+        for SPLIT_FILE in x*; do
+            [ -f "$SPLIT_FILE" ] || continue
 
-        # Clean up any old iptables rule and ipset with this name.
-        # '2>/dev/null || true' suppresses errors if they don't exist, which is expected.
-        iptables -D INPUT -m set --match-set "${CURRENT_SET}" src -j DROP 2>/dev/null || true
-        ipset destroy "${CURRENT_SET}" 2>/dev/null || true
+            SUFFIX=$(echo "$SPLIT_FILE" | sed 's/x//')
+            CURRENT_SET="${set_name_base}_${SUFFIX}"
 
-        # Create the new ipset.
-        ipset create "${CURRENT_SET}" hash:net
+            echo "--> Processing chunk ${SUFFIX}: creating ipset '${CURRENT_SET}'"
 
-        # Prepare the chunk file and restore it into the new ipset.
-        # We use 'pv' for a progress bar if available, otherwise just 'cat'.
-        if command -v pv >/dev/null; then
-            pv "${SPLIT_FILE}" | sed "s/^/add \"${CURRENT_SET}\" /" | ipset restore
-        else
+            # Clean up old rules and sets, suppressing errors if they don't exist.
+            "$iptables_cmd" -D INPUT -m set --match-set "${CURRENT_SET}" src -j DROP 2>/dev/null || true
+            ipset destroy "${CURRENT_SET}" 2>/dev/null || true
+
+            # Create the new ipset with the correct family. THIS IS CRITICAL.
+            ipset create "${CURRENT_SET}" hash:net family "${family}"
+
+            # Restore the chunk into the ipset.
             sed "s/^/add \"${CURRENT_SET}\" /" < "${SPLIT_FILE}" | ipset restore
-        fi
 
-        echo "--> Adding set '${CURRENT_SET}' to iptables INPUT chain"
-        iptables -A INPUT -m set --match-set "${CURRENT_SET}" src -j DROP
-    done
-)
+            echo "--> Adding set '${CURRENT_SET}' to ${iptables_cmd} INPUT chain"
+            "$iptables_cmd" -A INPUT -m set --match-set "${CURRENT_SET}" src -j DROP
+        done
+    )
+}
 
-echo "==> Script finished successfully."
+# --- Main Execution ---
+# Process IPv4 list using iptables
+process_ip_list "$IPV4_FILE" "$IPV4_SET_NAME_BASE" "inet" "iptables"
+
+# Process IPv6 list using ip6tables
+process_ip_list "$IPV6_FILE" "$IPV6_SET_NAME_BASE" "inet6" "ip6tables"
+
+echo "\n==> Script finished successfully."
