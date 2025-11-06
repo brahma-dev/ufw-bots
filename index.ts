@@ -17,11 +17,11 @@ interface RipeStatResponse {
 
 async function fetchBadASNs(): Promise<string[]> {
     console.log("Fetching bad ASN list...");
-    const url = "https://raw.githubusercontent.com/brianhama/bad-asn-list/master/bad-asn-list.csv";
+    const url = "https://raw.githubusercontent.com/O-X-L/risk-db-lists/refs/heads/main/asn/kind_hosting.txt";
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to fetch bad ASN list: ${response.statusText}`);
     const text = await response.text();
-    const asns = text.split(/\r\n|\r|\n/).slice(1).map(line => line.split(",")[0].replaceAll('"', '')).filter(asn => asn && !notSoBadASNs.includes(asn));
+    const asns = text.split(/\r\n|\r|\n/).filter(asn => asn && !notSoBadASNs.includes(asn));
     console.log(`Found ${asns.length} bad ASNs to process.`);
     return asns.map(asn => `AS${asn}`);
 }

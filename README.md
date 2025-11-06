@@ -2,7 +2,14 @@
 
 This project provides lists of datacenter IP addresses and scripts to help you block them using `ufw` or `iptables`. By blocking these IPs, you can reduce the amount of bot traffic to your servers.
 
-A GitHub workflow automatically updates the IP lists every 6 hours. You have two ways to use these lists:
+It gets ASNs of hosting providers from [O-X-L/risk-db-lists](https://github.com/O-X-L/risk-db-lists/blob/main/asn/kind_hosting.csv "https://github.com/O-X-L/risk-db-lists/blob/main/asn/kind_hosting.csv") and generates the subnet lists from that.
+
+I have excluded the following ASNs from the above list. See `notSoBadASNs` in `index.ts`
+- Cloudflare (13335)
+
+A GitHub workflow automatically updates the IP lists in this repo every 6 hours. You can directly download those if you need them for some other purpose like risk scores...
+
+You have two ways to use the scripts:
 
 1.  **Recommended (Safer):** Clone this repository and run the scripts locally. This allows you to review the code before it runs on your system.
 2.  **Advanced (Less Safe):** Directly download and run the scripts from the repository. This is not recommended as it involves executing code from the internet without prior review.
