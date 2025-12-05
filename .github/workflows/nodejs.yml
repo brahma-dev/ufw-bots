@@ -27,7 +27,7 @@ jobs:
 
     - name: Install Dependencies
       # 'bun install' is significantly faster than 'npm install'
-      run: bun install
+      run: bun install --frozen-lockfile
 
     - name: Generate IP Lists
       # Run the script directly with Bun
