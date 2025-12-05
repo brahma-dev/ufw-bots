@@ -19,21 +19,17 @@ set -u
 [ -n "${DEBUG-}" ] && set -x
 
 # --- Variables ---
-# Get the absolute directory where the script is located.
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 BASE_URL="https://raw.githubusercontent.com/brahma-dev/ufw-bots/master/files"
 
-# Configuration for IPv4
 IPV4_SET_NAME_BASE="bad_asn_ipv4"
 IPV4_FILE="${ROOT_DIR}/ipv4.txt"
 IPV4_URL="${BASE_URL}/ipv4.txt"
 
-# Configuration for IPv6
 IPV6_SET_NAME_BASE="bad_asn_ipv6"
 IPV6_FILE="${ROOT_DIR}/ipv6.txt"
 IPV6_URL="${BASE_URL}/ipv6.txt"
 
-# --- Argument Handling ---
 if [ "$#" -gt 0 ] && [ "$1" = "download" ]; then
     echo "==> Download option specified. Fetching the latest block lists..."
     wget -q --progress=bar --show-progress -O "${IPV4_FILE}" "${IPV4_URL}"
@@ -52,7 +48,6 @@ TMP_DIR="$(mktemp -d)"
 trap 'echo "==> Cleaning up temporary directory..."; rm -rf "${TMP_DIR}"' EXIT HUP INT QUIT TERM
 
 # --- Function to process an IP list ---
-# Arguments: $1=IP_FILE, $2=SET_NAME_BASE, $3=FAMILY, $4=IPTABLES_CMD
 process_ip_list() {
     ip_file="$1"
     set_name_base="$2"
@@ -61,10 +56,8 @@ process_ip_list() {
 
     echo "\n--- Processing ${family} rules ---"
 
-    # Use a subshell to avoid changing the main script's directory.
     (
         cd "${TMP_DIR}"
-        # Split the input file into manageable chunks.
         cat "${ip_file}" | split --suffix-length=2 --numeric-suffixes=1 --lines=65536
 
         for SPLIT_FILE in x*; do
@@ -75,14 +68,11 @@ process_ip_list() {
 
             echo "--> Processing chunk ${SUFFIX}: creating ipset '${CURRENT_SET}'"
 
-            # Clean up old rules and sets, suppressing errors if they don't exist.
             "$iptables_cmd" -D INPUT -m set --match-set "${CURRENT_SET}" src -j DROP 2>/dev/null || true
             ipset destroy "${CURRENT_SET}" 2>/dev/null || true
 
-            # Create the new ipset with the correct family. THIS IS CRITICAL.
             ipset create "${CURRENT_SET}" hash:net family "${family}"
 
-            # Restore the chunk into the ipset.
             sed "s/^/add \"${CURRENT_SET}\" /" < "${SPLIT_FILE}" | ipset restore
 
             echo "--> Adding set '${CURRENT_SET}' to ${iptables_cmd} INPUT chain"
@@ -92,10 +82,8 @@ process_ip_list() {
 }
 
 # --- Main Execution ---
-# Process IPv4 list using iptables
 process_ip_list "$IPV4_FILE" "$IPV4_SET_NAME_BASE" "inet" "iptables"
 
-# Process IPv6 list using ip6tables
 process_ip_list "$IPV6_FILE" "$IPV6_SET_NAME_BASE" "inet6" "ip6tables"
 
 echo "\n==> Script finished successfully."

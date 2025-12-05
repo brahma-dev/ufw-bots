@@ -40,7 +40,7 @@ IPV6_URL="${BASE_URL}/ipv6.txt"
 UFW_IPV6_RULES_FILE="/etc/ufw/user6.rules"
 
 # Unique comment to identify rules managed by this script
-RULE_COMMENT="7566772d626f7473" # "bots" in hex
+RULE_COMMENT="7566772d626f7473" # "ufw-bots" in hex
 
 # --- Argument Handling ---
 if [ "$#" -gt 0 ] && [ "$1" = "download" ]; then
@@ -57,12 +57,10 @@ else
 fi
 
 # --- Temporary File and Cleanup ---
-# We'll create one temp file inside the function.
 TMP_RULES_FILE=$(mktemp)
 trap 'echo "==> Cleaning up temporary file..."; rm -f "$TMP_RULES_FILE"' EXIT HUP INT QUIT TERM
 
 # --- Function to process a UFW rules file ---
-# Arguments: $1=IP_LIST_FILE, $2=UFW_CONFIG_FILE, $3=ANY_IP_CIDR ('0.0.0.0/0' or '::/0')
 process_ufw_rules() {
     local ip_list_file="$1"
     local ufw_config_file="$2"
@@ -78,22 +76,14 @@ process_ufw_rules() {
     echo "\n--- Processing ${protocol_name} rules for ${ufw_config_file} ---"
 
     echo "--> Clearing old ${protocol_name} rules..."
-    # This portable 'sed' command finds our comment, appends the next line (N),
-    # and then deletes the pair (d). This is a safe replacement for 'sed -z'.
-    # A backup file with extension .bak.old is created.
     sed -i.bak.old "/### tuple.* comment=${RULE_COMMENT}/ { N; d; }" "${ufw_config_file}"
-    # This command removes consecutive blank lines that may have been left behind.
     sed -i "${ufw_config_file}" -e 'N;/^\n$/D;P;D'
 
 
     echo "--> Generating new ${protocol_name} rules..."
-    # Clear the temporary file for this run.
     > "$TMP_RULES_FILE"
-    # Read the IP list line-by-line and format it into UFW rules.
     while read -r subnet; do
-        # Skip empty lines in the source file
         [ -z "$subnet" ] && continue
-        # Append the two-line UFW rule format to our temporary file.
         {
             echo "### tuple ### deny any any ${any_ip_cidr} any ${subnet} in comment=${RULE_COMMENT}"
             echo "-A ufw-user-input -s ${subnet} -j DROP"
@@ -102,20 +92,13 @@ process_ufw_rules() {
     done < "${ip_list_file}"
 
     echo "--> Applying new ${protocol_name} rules..."
-    # Use sed's 'r' (read) command to insert the contents of our temporary file
-    # right after the '### RULES ###' marker in the UFW configuration.
-    # A backup file with extension .bak.clean is created.
     sed -i.bak.clean "/### RULES ###/r ${TMP_RULES_FILE}" "${ufw_config_file}"
 }
 
 # --- Main Execution ---
-# Process IPv4 rules
 process_ufw_rules "$IPV4_FILE" "$UFW_IPV4_RULES_FILE" "0.0.0.0/0"
 
-# Process IPv6 rules
-# Note: For IPv6, the rule is added to ufw6-user-input chain
 process_ufw_rules "$IPV6_FILE" "$UFW_IPV6_RULES_FILE" "::/0" | sed 's/-A ufw-user-input/-A ufw6-user-input/' > "$TMP_RULES_FILE"
-# Apply the modified IPv6 rules
 sed -i.bak.clean "/### RULES ###/r ${TMP_RULES_FILE}" "${UFW_IPV6_RULES_FILE}"
 
 
